@@ -1,0 +1,164 @@
+.site-header {
+  height: 76px;
+  background-color: white;
+  border-bottom: 1px solid #dce3ee;
+}
+
+.site-header-inner {
+  width: 100%;
+  height: 100%;
+  padding: 0 36px;
+  display: flex;
+  align-items: center;
+}
+
+.site-logo-area {
+  display: flex;
+  align-items: center;
+}
+
+.site-logo-area img {
+  width: 220px;
+  display: block;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+}
+
+.site-nav span {
+  position: relative;
+  color: #475569;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: default;
+}
+
+.site-nav span:hover {
+  color: #2563eb;
+}
+
+.site-nav span::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -9px;
+  width: 0;
+  height: 2px;
+  background-color: #2563eb;
+  transition: width 0.2s;
+}
+
+.site-nav span:hover::after {
+  width: 100%;
+}
+
+.site-auth {
+  margin-left: auto;
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+.login-button,
+.join-button {
+  height: 34px;
+  padding: 0 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.login-button {
+  border: 1px solid #cbd5e1;
+  background-color: white;
+  color: #334155;
+}
+
+.login-button:hover {
+  background-color: #f8fafc;
+}
+
+.join-button {
+  border: none;
+  background-color: #2563eb;
+  color: white;
+}
+
+.join-button:hover {
+  background-color: #1d4ed8;
+}
+
+.join-modal-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: rgba(15, 23, 42, 0.45);
+}
+
+.join-modal {
+  width: 360px;
+  padding: 24px;
+  border-radius: 10px;
+  background-color: white;
+  box-shadow: 0 20px 40px rgba(15, 23, 42, 0.25);
+}
+
+.join-modal-title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.join-modal-title h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 22px;
+}
+
+.join-modal-title button {
+  border: none;
+  background-color: transparent;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.join-modal label {
+  display: block;
+  margin-bottom: 14px;
+  color: #334155;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.join-modal input {
+  width: 100%;
+  height: 38px;
+  margin-top: 6px;
+  padding: 0 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+.join-submit-button {
+  width: 100%;
+  height: 40px;
+  margin-top: 6px;
+  border: none;
+  border-radius: 6px;
+  background-color: #0aa35c;
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.join-submit-button:hover {
+  background-color: #07884d;
+}
