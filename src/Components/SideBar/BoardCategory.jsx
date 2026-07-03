@@ -1,58 +1,113 @@
-function BoardCategory(props) {
-  const total = props.posts.length
-  const noticeCount = props.posts.filter(post => post.category === '공지사항').length
-  const questionCount = props.posts.filter(post => post.category === '질문').length
-  const shareCount = props.posts.filter(post => post.category === '공유').length
-  const freeCount = props.posts.filter(post => post.category === '자유').length
+import { useState } from 'react'
 
-  const categories = [
-    { icon: '📢', name: '공지사항', count: noticeCount, color: 'notice' },
-    { icon: '💻', name: '질문 게시글', count: questionCount, color: 'question' },
-    { icon: '🚀', name: '공유 게시글', count: shareCount, color: 'share' },
-    { icon: '💬', name: '자유 게시글', count: freeCount, color: 'free' },
+function BoardCategory() {
+  const [selectedOptions, setSelectedOptions] = useState([])
+  const [voteCounts, setVoteCounts] = useState({
+    developer: 4,
+    pm: 2,
+    designer: 3,
+    marketer: 1,
+  })
+  const [isVoted, setIsVoted] = useState(false)
+
+  const voteOptions = [
+    { id: 'developer', icon: '💻', name: '개발자', color: 'notice' },
+    { id: 'pm', icon: '📋', name: 'PM', color: 'question' },
+    { id: 'designer', icon: '🎨', name: '웹디자이너', color: 'share' },
+    { id: 'marketer', icon: '📣', name: '마케터', color: 'free' },
   ]
+
+  const totalVotes = Object.values(voteCounts).reduce((sum, count) => sum + count, 0)
+
+  const handleSelectOption = (optionId) => {
+    if (isVoted) {
+      return
+    }
+
+    if (selectedOptions.includes(optionId)) {
+      setSelectedOptions(selectedOptions.filter((id) => id !== optionId))
+      return
+    }
+
+    if (selectedOptions.length >= 2) {
+      alert('최대 2개까지만 선택할 수 있습니다.')
+      return
+    }
+
+    setSelectedOptions([...selectedOptions, optionId])
+  }
+
+  const handleVote = () => {
+    if (selectedOptions.length === 0) {
+      alert('투표할 항목을 선택해주세요.')
+      return
+    }
+
+    const nextVoteCounts = { ...voteCounts }
+
+    selectedOptions.forEach((optionId) => {
+      nextVoteCounts[optionId] += 1
+    })
+
+    setVoteCounts(nextVoteCounts)
+    setIsVoted(true)
+  }
 
   return (
     <div className="poll-card">
       <div className="poll-title-row">
         <strong>투표</strong>
-        <span>전체보기</span>
+        <span>진행중</span>
       </div>
 
-      <h4>어떤 게시글을 가장 많이 보고 있나요?</h4>
-      <p className="poll-info">복수 선택 가능 <span>(최대 3개)</span></p>
+      <h4>AI시대 최고 수혜자는?</h4>
+      <p className="poll-info">복수 선택 가능 <span>(최대 2개)</span></p>
 
       <ul className="poll-list">
-        {
-          categories.map((category) => {
-            const percent = total === 0 ? 0 : Math.round((category.count / total) * 100)
+        {voteOptions.map((option) => {
+          const count = voteCounts[option.id]
+          const percent = totalVotes === 0 ? 0 : Math.round((count / totalVotes) * 100)
+          const isSelected = selectedOptions.includes(option.id)
 
-            return (
-              <li key={category.name}>
-                <div className="poll-item-top">
-                  <span>{category.icon} {category.name}</span>
-                  <em>{percent}%</em>
-                </div>
+          return (
+            <li key={option.id}>
+              <button
+                type="button"
+                className={isSelected ? 'poll-option selected' : 'poll-option'}
+                onClick={() => handleSelectOption(option.id)}
+              >
+              <span className="poll-option-name">
+                {option.icon} {option.name}
+                <i className="poll-check-circle"></i>
+              </span>
+                <em>{percent}%</em>
+              </button>
 
-                <div className="poll-bar">
-                  <div
-                    className={`poll-fill ${category.color}`}
-                    style={{ width: `${percent}%` }}
-                  >
-                    {category.count}표
-                  </div>
+              <div className="poll-bar">
+                <div
+                  className={`poll-fill ${option.color}`}
+                  style={{ width: `${percent}%` }}
+                >
+                  {count}표
                 </div>
-              </li>
-            )
-          })
-        }
+              </div>
+            </li>
+          )
+        })}
       </ul>
 
-      <button className="poll-cancel">투표 취소</button>
+      <button
+        type="button"
+        className="poll-submit-button"
+        onClick={handleVote}
+        disabled={isVoted}
+      >
+        {isVoted ? '투표완료' : '투표하기'}
+      </button>
 
       <div className="poll-bottom">
-        <span>{total}명 참여</span>
-        <span>3주 후</span>
+        <span>{totalVotes}명 참여</span>
+        <span>3주 후 종료</span>
       </div>
     </div>
   )
