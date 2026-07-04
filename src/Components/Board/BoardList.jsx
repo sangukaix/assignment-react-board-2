@@ -1,6 +1,6 @@
 import BoardItem from './BoardItem'
 
-function BoardList(props) {
+function BoardList({ posts }) {
   return (
     <div className="board-list">
       <div className="board-list-head">
@@ -10,11 +10,9 @@ function BoardList(props) {
         <span>조회</span>
       </div>
 
-      {
-        props.posts.map((post) => {
-          return <BoardItem post={post} key={post.id} />
-        })
-      }
+      {posts.map((post) => (
+        <BoardItem post={post} key={post.id} />
+      ))}
     </div>
   )
 }

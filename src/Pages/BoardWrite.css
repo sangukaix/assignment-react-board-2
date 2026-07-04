@@ -1,0 +1,229 @@
+.write-layout {
+  width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.write-main {
+  flex: 1;
+}
+
+.write-card {
+  padding: 0 0 22px;
+  border: 1px solid #dce3ee;
+  border-radius: 8px;
+  background-color: white;
+  overflow: hidden;
+}
+
+.write-card-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 22px 24px;
+  border-bottom: 1px solid #e5eaf2;
+}
+
+.write-card-head h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 22px;
+}
+
+.write-cancel-top {
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.write-cancel-top:hover {
+  color: #2563eb;
+}
+
+.write-field {
+  padding: 18px 24px 0;
+}
+
+.write-field label {
+  display: block;
+  margin-bottom: 8px;
+  color: #0f172a;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.write-field label span {
+  color: #ef4444;
+}
+
+.write-field input,
+.write-field select {
+  width: 100%;
+  height: 40px;
+  padding: 0 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  color: #334155;
+  font-size: 14px;
+}
+
+.write-editor {
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.write-toolbar {
+  display: flex;
+  gap: 4px;
+  padding: 8px 10px;
+  border-bottom: 1px solid #e5eaf2;
+  background-color: #f8fafc;
+}
+
+.write-toolbar button {
+  width: 28px;
+  height: 28px;
+  border: none;
+  border-radius: 4px;
+  background-color: transparent;
+  color: #64748b;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.write-toolbar button:hover {
+  background-color: #e2e8f0;
+}
+
+.write-editor textarea {
+  width: 100%;
+  height: 260px;
+  padding: 16px;
+  border: none;
+  outline: none;
+  resize: none;
+  color: #334155;
+  font-size: 14px;
+  line-height: 1.7;
+}
+
+.write-sub-buttons {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 24px 0;
+}
+
+.write-sub-buttons button {
+  height: 34px;
+  padding: 0 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  background-color: white;
+  color: #334155;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.write-sub-buttons span {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.write-poll {
+  margin: 18px 24px 0;
+  padding: 16px;
+  border-radius: 8px;
+  background: linear-gradient(135deg, #6366f1, #a855f7);
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.write-poll strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 16px;
+}
+
+.write-poll p {
+  margin: 0;
+  font-size: 13px;
+  opacity: 0.9;
+}
+
+.write-poll button {
+  width: 52px;
+  height: 28px;
+  border: none;
+  border-radius: 14px;
+  background-color: rgba(255, 255, 255, 0.35);
+  color: white;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.write-poll.active button {
+  background-color: white;
+  color: #7c3aed;
+}
+
+.write-poll-box {
+  margin: 12px 24px 0;
+  padding: 14px;
+  border: 1px solid #dce3ee;
+  border-radius: 8px;
+  background-color: #f8fafc;
+}
+
+.write-poll-box input {
+  width: 100%;
+  height: 36px;
+  margin-bottom: 8px;
+  padding: 0 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+}
+
+.write-poll-box input:last-child {
+  margin-bottom: 0;
+}
+
+.write-action {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  padding: 24px 24px 0;
+}
+
+.write-cancel-button,
+.write-action button {
+  height: 38px;
+  padding: 0 18px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.write-cancel-button {
+  border: 1px solid #cbd5e1;
+  background-color: white;
+  color: #334155;
+  display: flex;
+  align-items: center;
+}
+
+.write-action button {
+  border: none;
+  background-color: #2563eb;
+  color: white;
+}
+
+.write-action button:hover {
+  background-color: #1d4ed8;
+}

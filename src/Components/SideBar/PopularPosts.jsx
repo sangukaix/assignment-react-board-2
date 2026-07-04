@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom'
 
-function PopularPosts(props) {
-  const popularPosts = [...props.posts]
+function PopularPosts({ posts }) {
+  const popularPosts = [...posts]
     .sort((a, b) => b.views - a.views)
     .slice(0, 5)
 
@@ -10,21 +10,17 @@ function PopularPosts(props) {
       <div className="side-menu-title">🔥 인기글</div>
 
       <ul className="popular-list">
-        {
-          popularPosts.map((post, idx) => {
-            return (
-              <li key={post.id}>
-                <span className="popular-rank">{idx + 1}</span>
+        {popularPosts.map((post, idx) => (
+          <li key={post.id}>
+            <span className="popular-rank">{idx + 1}</span>
 
-                <Link to={`/board/${post.id}`} className="popular-title">
-                  {post.title}
-                </Link>
+            <Link to={`/board/${post.id}`} className="popular-title">
+              {post.title}
+            </Link>
 
-                <span className="popular-view">{post.views}</span>
-              </li>
-            )
-          })
-        }
+            <span className="popular-view">{post.views}</span>
+          </li>
+        ))}
       </ul>
     </div>
   )

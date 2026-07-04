@@ -76,10 +76,10 @@ function BoardCategory() {
                 className={isSelected ? 'poll-option selected' : 'poll-option'}
                 onClick={() => handleSelectOption(option.id)}
               >
-              <span className="poll-option-name">
-                {option.icon} {option.name}
-                <i className="poll-check-circle"></i>
-              </span>
+                <span className="poll-option-name">
+                  {option.icon} {option.name}
+                  <i className="poll-check-circle"></i>
+                </span>
                 <em>{percent}%</em>
               </button>
 
@@ -107,7 +107,7 @@ function BoardCategory() {
 
       <div className="poll-bottom">
         <span>{totalVotes}명 참여</span>
-        <span>3주 후 종료</span>
+        <span>26/9/30 종료</span>
       </div>
     </div>
   )

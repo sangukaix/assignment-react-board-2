@@ -1,6 +1,15 @@
+import { Link, useParams } from 'react-router-dom'
 import PopularPosts from './PopularPosts'
 
-function CommunityPanel(props) {
+function CommunityPanel({ posts }) {
+  const { boardType } = useParams()
+
+  const menuList = [
+    { type: 'free', icon: '🔥', name: '자유게시판', path: '/boards/free' },
+    { type: 'resource', icon: '📁', name: '자료게시판', path: '/boards/resource' },
+    { type: 'greeting', icon: '👋', name: '가입인사', path: '/boards/greeting' },
+  ]
+
   return (
     <div className="community-panel">
       <div className="community-header">
@@ -10,13 +19,19 @@ function CommunityPanel(props) {
 
       <div className="community-body">
         <ul className="community-menu">
-          <li className="active">🔥 자유게시판</li>
-          <li>🙂 유머게시판</li>
-          <li>⚔️ 오늘의 배틀</li>
-          <li>👋 가입인사</li>
+          {menuList.map((menu) => (
+            <li
+              key={menu.type}
+              className={boardType === menu.type ? 'active' : ''}
+            >
+              <Link to={menu.path}>
+                {menu.icon} {menu.name}
+              </Link>
+            </li>
+          ))}
         </ul>
 
-        <PopularPosts posts={props.posts} />
+        <PopularPosts posts={posts} />
       </div>
     </div>
   )

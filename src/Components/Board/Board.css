@@ -1,0 +1,286 @@
+.board-layout {
+  width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.board-main {
+  flex: 1;
+}
+
+.board-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+}
+
+.board-title-row h2 {
+  margin: 0;
+  color: #0f172a;
+  font-size: 24px;
+}
+
+.board-title-row h2 span {
+  color: #64748b;
+  font-size: 13px;
+}
+
+.board-sub-title {
+  margin: 6px 0 0;
+  color: #64748b;
+  font-size: 14px;
+}
+
+.board-toolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.write-button {
+  padding: 9px 16px;
+  border-radius: 6px;
+  background-color: #0aa35c;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.write-button:hover {
+  background-color: #07884d;
+}
+
+.board-search {
+  display: flex;
+  gap: 8px;
+}
+
+.board-search select,
+.board-search input {
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid #d7dee9;
+  border-radius: 6px;
+  background-color: white;
+}
+
+.board-search input {
+  width: 240px;
+}
+
+.board-search button {
+  height: 38px;
+  padding: 0 18px;
+  border: none;
+  border-radius: 6px;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 700;
+}
+
+.board-summary {
+  display: flex;
+  align-items: center;
+  margin-bottom: 16px;
+  padding: 12px 18px;
+  border: 1px solid #dce3ee;
+  border-radius: 8px;
+  background-color: white;
+  box-shadow: 0 1px 4px rgba(15, 23, 42, 0.06);
+}
+
+.summary-item {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 0 18px;
+  border-right: 1px solid #e5eaf2;
+  color: #334155;
+  font-size: 14px;
+}
+
+.summary-item:first-child {
+  padding-left: 0;
+}
+
+.summary-item:last-child {
+  padding-right: 0;
+  border-right: none;
+}
+
+.summary-icon {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+}
+
+.summary-icon.purple {
+  background-color: #ede9fe;
+}
+
+.summary-icon.blue {
+  background-color: #dbeafe;
+}
+
+.summary-icon.yellow {
+  background-color: #fef3c7;
+}
+
+.summary-icon.green {
+  background-color: #dcfce7;
+}
+
+.summary-label {
+  color: #64748b;
+}
+
+.summary-item strong {
+  color: #0f172a;
+  font-size: 15px;
+}
+
+.board-list {
+  overflow: hidden;
+  border: 1px solid #dce3ee;
+  border-radius: 6px;
+  background-color: white;
+}
+
+.board-list-head,
+.board-item {
+  display: grid;
+  grid-template-columns: 1fr 120px 100px 70px;
+  align-items: center;
+}
+
+.board-list-head {
+  height: 42px;
+  border-bottom: 1px solid #e5eaf2;
+  background-color: #f8fafc;
+  color: #64748b;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.board-list-head span,
+.board-item span {
+  padding: 0 14px;
+}
+
+.board-item {
+  min-height: 48px;
+  border-bottom: 1px solid #edf1f7;
+  color: #334155;
+  font-size: 14px;
+}
+
+.board-item:last-child {
+  border-bottom: none;
+}
+
+.post-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.post-title a:hover {
+  color: #2563eb;
+}
+
+.post-title em {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: #dcfce7;
+  color: #16a34a;
+  font-size: 11px;
+  font-style: normal;
+}
+
+.comment-count {
+  color: #f97316;
+  font-size: 12px;
+}
+
+.new-badge {
+  padding: 2px 6px;
+  border-radius: 4px;
+  background-color: #bbf7d0;
+  color: #16a34a;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 18px;
+}
+
+.pagination button {
+  min-width: 34px;
+  height: 34px;
+  border: 1px solid #d7dee9;
+  border-radius: 6px;
+  background-color: white;
+  color: #475569;
+  font-weight: 700;
+}
+
+.pagination button.active {
+  border-color: #2563eb;
+  background-color: #2563eb;
+  color: white;
+}
+
+.pagination button:disabled {
+  background-color: #f8fafc;
+  color: #cbd5e1;
+  cursor: default;
+}
+
+@media (max-width: 900px) {
+  .board-layout {
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .board-toolbar {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .board-search input {
+    flex: 1;
+    width: auto;
+  }
+
+  .board-list-head,
+  .board-item {
+    grid-template-columns: 1fr 80px 70px;
+  }
+
+  .board-list-head span:nth-child(2),
+  .board-item span:nth-child(2) {
+    display: none;
+  }
+
+  .board-summary {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .summary-item {
+    padding: 0 12px 0 0;
+  }
+}

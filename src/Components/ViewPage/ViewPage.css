@@ -1,0 +1,258 @@
+.view-layout {
+  width: 1180px;
+  margin: 0 auto;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+.view-main {
+  flex: 1;
+}
+
+.view-top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.view-back-link {
+  color: #64748b;
+  font-weight: 700;
+}
+
+.view-back-link:hover {
+  color: #2563eb;
+}
+
+.view-card {
+  margin-bottom: 16px;
+  padding: 28px;
+  border: 1px solid #dce3ee;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.view-back-button {
+  display: inline-block;
+  margin-top: 14px;
+  padding: 8px 14px;
+  border-radius: 6px;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 700;
+}
+
+.post-detail-head {
+  border-bottom: 1px solid #e5eaf2;
+  padding-bottom: 18px;
+}
+
+.post-category {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 4px 8px;
+  border-radius: 4px;
+  background-color: #dcfce7;
+  color: #16a34a;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.post-detail h2 {
+  margin: 0 0 12px;
+  color: #0f172a;
+  font-size: 24px;
+}
+
+.post-meta {
+  display: flex;
+  gap: 16px;
+  color: #64748b;
+  font-size: 13px;
+}
+
+.post-content {
+  min-height: 210px;
+  padding: 24px 0 10px;
+  color: #334155;
+  font-size: 16px;
+  line-height: 1.7;
+}
+
+.reaction-list {
+  display: flex;
+  justify-content: center;
+  gap: 22px;
+  padding-top: 18px;
+  border-top: 1px solid #e5eaf2;
+}
+
+.reaction-button {
+  border: none;
+  background-color: transparent;
+  color: #475569;
+  cursor: pointer;
+}
+
+.reaction-button span {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 28px;
+}
+
+.reaction-button strong {
+  display: block;
+  font-size: 12px;
+}
+
+.reaction-button em {
+  display: block;
+  margin-top: 2px;
+  color: #2563eb;
+  font-style: normal;
+  font-size: 12px;
+}
+
+.comment-section {
+  margin-bottom: 16px;
+  border: 1px solid #dce3ee;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.comment-section h3 {
+  margin: 0;
+  padding: 18px 20px;
+  border-bottom: 1px solid #e5eaf2;
+  color: #0f172a;
+  font-size: 16px;
+}
+
+.comment-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.comment-item {
+  display: flex;
+  gap: 12px;
+  padding: 18px 20px;
+  border-bottom: 1px solid #edf1f7;
+}
+
+.comment-item:last-child {
+  border-bottom: none;
+}
+
+.comment-profile span {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f1f5f9;
+  font-size: 14px;
+}
+
+.comment-body {
+  flex: 1;
+}
+
+.comment-top {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  font-size: 13px;
+}
+
+.comment-top strong {
+  color: #0f172a;
+}
+
+.comment-top span {
+  color: #94a3b8;
+}
+
+.comment-body p {
+  margin: 0;
+  color: #334155;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.comment-reaction {
+  display: flex;
+  justify-content: flex-end;
+  gap: 4px;
+  color: #64748b;
+  font-size: 12px;
+}
+
+.comment-reaction em {
+  font-style: normal;
+}
+
+.comment-write {
+  overflow: hidden;
+  border: 1px solid #dce3ee;
+  border-radius: 8px;
+  background-color: white;
+}
+
+.comment-toolbar {
+  display: flex;
+  gap: 4px;
+  padding: 8px 10px;
+  border-bottom: 1px solid #e5eaf2;
+}
+
+.comment-toolbar button {
+  width: 26px;
+  height: 26px;
+  border: none;
+  background-color: transparent;
+  color: #64748b;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.comment-write textarea {
+  width: 100%;
+  height: 120px;
+  padding: 16px;
+  border: none;
+  resize: none;
+  outline: none;
+  color: #334155;
+  font-size: 14px;
+}
+
+.comment-write-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 12px;
+  border-top: 1px solid #e5eaf2;
+}
+
+.comment-write-bottom span {
+  color: #64748b;
+  font-size: 12px;
+}
+
+.comment-write-bottom button {
+  height: 34px;
+  padding: 0 14px;
+  border: none;
+  border-radius: 6px;
+  background-color: #2563eb;
+  color: white;
+  font-weight: 700;
+  cursor: pointer;
+}

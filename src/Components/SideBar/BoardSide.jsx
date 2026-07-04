@@ -1,3 +1,4 @@
+import './SideBar.css'
 import CommunityPanel from './CommunityPanel'
 import BoardCategory from './BoardCategory'
 
