@@ -8,6 +8,7 @@ function CommunityPanel({ posts }) {
     { type: 'free', icon: '🔥', name: '자유게시판', path: '/boards/free' },
     { type: 'resource', icon: '📁', name: '자료게시판', path: '/boards/resource' },
     { type: 'greeting', icon: '👋', name: '가입인사', path: '/boards/greeting' },
+    { type: 'favorite', icon: '⭐', name: '즐겨찾기', path: '/boards/favorite' },
   ]
 
   return (

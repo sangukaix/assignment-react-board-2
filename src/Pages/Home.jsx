@@ -3,15 +3,18 @@ import BoardContainer from '../Components/Board/BoardContainer'
 
 function Home({ posts, boardInfo }) {
   const { boardType } = useParams()
+  const currentBoardType = boardInfo[boardType] ? boardType : 'free'
+  const currentBoardInfo = boardInfo[currentBoardType]
 
-  const currentBoardInfo = boardInfo[boardType] || boardInfo.free
-  const currentPosts = posts.filter((post) => post.boardType === boardType)
+  const currentPosts = currentBoardType === 'favorite'
+    ? posts.filter((post) => post.favorite)
+    : posts.filter((post) => post.boardType === currentBoardType)
 
   return (
     <BoardContainer
       posts={currentPosts}
       allPosts={posts}
-      boardType={boardType}
+      boardType={currentBoardType}
       boardInfo={currentBoardInfo}
     />
   )

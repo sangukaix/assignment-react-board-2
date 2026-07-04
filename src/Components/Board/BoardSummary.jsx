@@ -1,11 +1,14 @@
-function BoardSummary({ posts }) {
-  const totalViews = posts.reduce((sum, post) => sum + post.views, 0)
+function BoardSummary({ allPosts }) {
+  const freePosts = allPosts.filter((post) => post.boardType === 'free')
+  const totalViews = freePosts.reduce((sum, post) => sum + post.views, 0)
+  const favoriteCount = allPosts.filter((post) => post.favorite).length
+  const myPostCount = allPosts.filter((post) => post.mine).length
 
   const summaryList = [
-    { icon: '💬', label: '전체 게시글', value: posts.length, color: 'purple' },
+    { icon: '💬', label: '전체 게시글', value: freePosts.length, color: 'purple' },
     { icon: '👁', label: '오늘 조회수', value: totalViews, color: 'blue' },
-    { icon: '☆', label: '즐겨찾기', value: 7, color: 'yellow' },
-    { icon: '✎', label: '내가 작성한 글', value: 9, color: 'green' },
+    { icon: '☆', label: '즐겨찾기', value: favoriteCount, color: 'yellow' },
+    { icon: '✎', label: '내가 작성한 글', value: myPostCount, color: 'green' },
   ]
 
   return (

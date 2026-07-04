@@ -1,41 +1,36 @@
-import { useState } from 'react'
+const reactionList = [
+  { id: 'like', icon: '👍', label: '좋아요' },
+  { id: 'laugh', icon: '😂', label: '웃겨요' },
+  { id: 'agree', icon: '👌', label: '동의해요' },
+  { id: 'thanks', icon: '🙏', label: '감사해요' },
+  { id: 'wow', icon: '😮', label: '놀라워요' },
+]
 
-function ReactionButtons() {
-  const [reactions, setReactions] = useState([
-    { id: 1, icon: '👍', label: '좋아요', count: 0 },
-    { id: 2, icon: '😂', label: '웃겨요', count: 2 },
-    { id: 3, icon: '👌', label: '응원해요', count: 0 },
-    { id: 4, icon: '🙏', label: '감사해요', count: 0 },
-    { id: 5, icon: '😮', label: '놀라워요', count: 0 },
-  ])
-
-  const handleReactionClick = (reactionId) => {
-    setReactions(reactions.map((reaction) => {
-      if (reaction.id === reactionId) {
-        return {
-          ...reaction,
-          count: reaction.count + 1,
-        }
-      }
-
-      return reaction
-    }))
-  }
+function ReactionButtons({ reactions, onReaction }) {
+  const totalReactions = reactionList.reduce((sum, reaction) => {
+    return sum + (reactions[reaction.id] || 0)
+  }, 0)
 
   return (
-    <div className="reaction-list">
-      {reactions.map((reaction) => (
-        <button
-          type="button"
-          key={reaction.id}
-          className="reaction-button"
-          onClick={() => handleReactionClick(reaction.id)}
-        >
-          <span>{reaction.icon}</span>
-          <strong>{reaction.label}</strong>
-          <em>{reaction.count}</em>
-        </button>
-      ))}
+    <div className="reaction-wrap">
+      {totalReactions > 0 && (
+        <p className="reaction-total">총 {totalReactions}명이 반응했습니다.</p>
+      )}
+
+      <div className="reaction-list">
+        {reactionList.map((reaction) => (
+          <button
+            type="button"
+            key={reaction.id}
+            className="reaction-button"
+            onClick={() => onReaction(reaction.id)}
+          >
+            <span>{reaction.icon}</span>
+            <strong>{reaction.label}</strong>
+            <em>{reactions[reaction.id] || 0}</em>
+          </button>
+        ))}
+      </div>
     </div>
   )
 }

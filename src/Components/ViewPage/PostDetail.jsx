@@ -14,7 +14,15 @@ function PostDetail({ post }) {
       </div>
 
       <div className="post-content">
-        <p>{post.content}</p>
+        <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
+
+        {post.files.length > 0 && (
+          <ul className="post-file-list">
+            {post.files.map((file) => (
+              <li key={file}>📎 {file}</li>
+            ))}
+          </ul>
+        )}
       </div>
     </article>
   )

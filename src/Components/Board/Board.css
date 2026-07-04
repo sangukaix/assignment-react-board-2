@@ -29,7 +29,7 @@
 }
 
 .board-sub-title {
-  margin: 6px 0 0;
+  margin: 8px 0 0;
   color: #64748b;
   font-size: 14px;
 }
@@ -186,10 +186,22 @@
   border-bottom: none;
 }
 
+.poll-post {
+  background-color: white;
+  box-shadow: inset 3px 0 0 #3b82f6;
+}
+
 .post-title {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 3px;
+  min-width: 0;
+}
+
+.post-title a {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .post-title a:hover {
@@ -197,26 +209,78 @@
 }
 
 .post-title em {
-  padding: 2px 6px;
+  padding: 1px 5px;
   border-radius: 4px;
   background-color: #dcfce7;
   color: #16a34a;
   font-size: 11px;
   font-style: normal;
+  font-weight: 400;
+  line-height: 1.25;
+}
+
+.poll-badge {
+  background-color: #e0e7ff !important;
+  color: #4f46e5 !important;
+}
+
+.poll-badge.done {
+  background-color: #ffedd5 !important;
+  color: #f97316 !important;
 }
 
 .comment-count {
   color: #f97316;
   font-size: 12px;
+  font-weight: 400;
 }
 
 .new-badge {
-  padding: 2px 6px;
+  padding: 1px 3px;
   border-radius: 4px;
-  background-color: #bbf7d0;
+  background-color: #d8fbe7;
   color: #16a34a;
-  font-size: 11px;
-  font-weight: 700;
+  font-size: 10px;
+  font-weight: 400;
+  line-height: 1.25;
+}
+.board-reaction-summary {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 0;
+}
+
+.board-reaction-summary i {
+  display: inline-flex;
+  align-items: center;
+  gap: 1px;
+  color: #f97316;
+  font-size: 12px;
+  font-style: normal;
+  line-height: 1;
+}
+
+.board-reaction-summary i span {
+  padding: 0;
+  font-size: 13px;
+}
+
+.board-reaction-summary i b {
+  color: #f97316;
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.board-empty {
+  padding: 26px;
+  border: 1px solid #dce3ee;
+  border-top: none;
+  border-radius: 0 0 6px 6px;
+  background-color: white;
+  color: #64748b;
+  text-align: center;
+  font-size: 14px;
 }
 
 .pagination {

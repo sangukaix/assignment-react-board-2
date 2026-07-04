@@ -2,12 +2,22 @@ import { useEffect, useRef } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import BoardSide from '../Components/SideBar/BoardSide'
 import PostDetail from '../Components/ViewPage/PostDetail'
+import PostPoll from '../Components/ViewPage/PostPoll'
 import ReactionButtons from '../Components/ViewPage/ReactionButtons'
 import CommentList from '../Components/ViewPage/CommentList'
 import CommentWrite from '../Components/ViewPage/CommentWrite'
 import '../Components/ViewPage/ViewPage.css'
 
-function BoardView({ posts, increaseViews }) {
+function BoardView({
+  posts,
+  increaseViews,
+  addReaction,
+  toggleFavorite,
+  addComment,
+  addCommentReaction,
+  votePostPoll,
+  resetPostPoll,
+}) {
   const { id } = useParams()
   const postId = Number(id)
   const viewedPostId = useRef(null)
@@ -44,19 +54,45 @@ function BoardView({ posts, increaseViews }) {
       <section className="view-layout">
         <div className="view-main">
           <div className="view-top-nav">
-            <Link to={`/boards/${post.boardType}`} className="view-back-link">
-              목록으로
-            </Link>
-            <span>이전 글 | 다음 글</span>
+            <Link to={`/boards/${post.boardType}`} className="view-back-link">목록</Link>
+            <span>확실히 휴먼 피드백이 가장 좋네요. 〉</span>
           </div>
 
           <div className="view-card">
             <PostDetail post={post} />
-            <ReactionButtons />
+
+            {post.poll && (
+              <PostPoll
+                poll={post.poll}
+                postId={post.id}
+                boardType={post.boardType}
+                onVote={votePostPoll}
+                onResetPoll={resetPostPoll}
+              />
+            )}
+
+            <ReactionButtons
+              reactions={post.reactions}
+              onReaction={(reactionId) => addReaction(post.id, reactionId)}
+            />
+
+            <div className="view-card-actions">
+              <button
+                type="button"
+                className={post.favorite ? 'favorite-button active' : 'favorite-button'}
+                onClick={() => toggleFavorite(post.id)}
+              >
+                {post.favorite ? '★ 즐겨찾기 해제' : '☆ 즐겨찾기'}
+              </button>
+              <Link to={`/boards/${post.boardType}`} className="view-list-button">목록으로</Link>
+            </div>
           </div>
 
-          <CommentList />
-          <CommentWrite />
+          <CommentList
+            comments={post.commentsList}
+            onCommentReaction={(commentId, reactionId) => addCommentReaction(post.id, commentId, reactionId)}
+          />
+          <CommentWrite onAddComment={(commentText) => addComment(post.id, commentText)} />
         </div>
 
         <BoardSide posts={posts} />

@@ -10,9 +10,10 @@ function BoardContainer({ posts, allPosts, boardType, boardInfo }) {
   const [currentPage, setCurrentPage] = useState(1)
 
   const postsPerPage = 8
-  const totalPage = Math.ceil(posts.length / postsPerPage)
+  const totalPage = Math.max(Math.ceil(posts.length / postsPerPage), 1)
   const startIndex = (currentPage - 1) * postsPerPage
   const currentPosts = posts.slice(startIndex, startIndex + postsPerPage)
+  const writeBoardType = boardType === 'favorite' ? 'free' : boardType
 
   return (
     <main className="board-page">
@@ -29,28 +30,19 @@ function BoardContainer({ posts, allPosts, boardType, boardInfo }) {
 
           <div className="board-toolbar">
             <BoardSearch />
-            <Link to={`/write?board=${boardType}`} className="write-button">+ 글쓰기</Link>
+            <Link to={`/write?board=${writeBoardType}`} className="write-button">+ 글쓰기</Link>
           </div>
 
-          <BoardSummary posts={posts} />
+          <BoardSummary allPosts={allPosts} />
           <BoardList posts={currentPosts} />
 
-          <div className="pagination">
-            <button
-              type="button"
-              onClick={() => setCurrentPage(1)}
-              disabled={currentPage === 1}
-            >
-              {'<<'}
-            </button>
+          {posts.length === 0 && (
+            <div className="board-empty">아직 표시할 게시글이 없습니다.</div>
+          )}
 
-            <button
-              type="button"
-              onClick={() => setCurrentPage(currentPage - 1)}
-              disabled={currentPage === 1}
-            >
-              {'<'}
-            </button>
+          <div className="pagination">
+            <button type="button" onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>{'<<'}</button>
+            <button type="button" onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>{'<'}</button>
 
             {Array.from({ length: totalPage }, (_, index) => (
               <button
@@ -63,21 +55,8 @@ function BoardContainer({ posts, allPosts, boardType, boardInfo }) {
               </button>
             ))}
 
-            <button
-              type="button"
-              onClick={() => setCurrentPage(currentPage + 1)}
-              disabled={currentPage === totalPage}
-            >
-              {'>'}
-            </button>
-
-            <button
-              type="button"
-              onClick={() => setCurrentPage(totalPage)}
-              disabled={currentPage === totalPage}
-            >
-              {'>>'}
-            </button>
+            <button type="button" onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPage}>{'>'}</button>
+            <button type="button" onClick={() => setCurrentPage(totalPage)} disabled={currentPage === totalPage}>{'>>'}</button>
           </div>
         </div>
 

@@ -1,34 +1,12 @@
-function CommentList() {
-  const comments = [
-    {
-      id: 1,
-      writer: '미니님',
-      time: '어제',
-      content: 'React Router로 게시판을 나누니까 페이지 이동 구조가 훨씬 이해됩니다.',
-      emoji: '🟢',
-      reaction: '😂',
-      reactionCount: 3,
-    },
-    {
-      id: 2,
-      writer: '마루디렉터',
-      time: '19시간 전',
-      content: '컴포넌트 분리 기준을 게시판으로 연습하는 방식이 좋은 것 같아요.',
-      emoji: '🦉',
-      reaction: '😂',
-      reactionCount: 1,
-    },
-    {
-      id: 3,
-      writer: '슬직한직장인지구',
-      time: '19시간 전',
-      content: '댓글, 반응, 상세 페이지까지 나누면 유지보수하기 훨씬 편하겠네요.',
-      emoji: '🟣',
-      reaction: '👍',
-      reactionCount: 2,
-    },
-  ]
+const commentReactions = [
+  { id: 'like', icon: '👍' },
+  { id: 'laugh', icon: '😂' },
+  { id: 'agree', icon: '👌' },
+  { id: 'thanks', icon: '🙏' },
+  { id: 'wow', icon: '😮' },
+]
 
+function CommentList({ comments, onCommentReaction }) {
   return (
     <section className="comment-section">
       <h3>댓글 {comments.length}개</h3>
@@ -46,11 +24,21 @@ function CommentList() {
                 <span>{comment.time}</span>
               </div>
 
-              <p>{comment.content}</p>
+              <p dangerouslySetInnerHTML={{ __html: comment.content }}></p>
 
-              <div className="comment-reaction">
-                <span>{comment.reaction}</span>
-                <em>{comment.reactionCount}</em>
+              <div className="comment-reaction-panel">
+                <button type="button" className="comment-reaction-add">+</button>
+                {commentReactions.map((reaction) => (
+                  <button
+                    type="button"
+                    key={reaction.id}
+                    className="comment-reaction-button"
+                    onClick={() => onCommentReaction(comment.id, reaction.id)}
+                  >
+                    <span>{reaction.icon}</span>
+                    <em>{comment.reactions[reaction.id] || 0}</em>
+                  </button>
+                ))}
               </div>
             </div>
           </li>

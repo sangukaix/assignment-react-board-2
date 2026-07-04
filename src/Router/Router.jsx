@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom'
+import { Routes, Route, Navigate } from 'react-router-dom'
 import Home from '../Pages/Home'
 import BoardWrite from '../Pages/BoardWrite'
 import BoardView from '../Pages/BoardView'
@@ -10,7 +10,7 @@ import { greetingPosts } from '../BoardData/Greeting'
 const boardInfo = {
   free: {
     title: '자유게시판',
-    subTitle: '',
+    subTitle: 'MBC 신림 학생 게시판입니다. 수강생분들끼리 자유롭게 의견을 공유하세요',
   },
   resource: {
     title: '자료게시판',
@@ -18,47 +18,232 @@ const boardInfo = {
   },
   greeting: {
     title: '가입인사',
-    subTitle: '',
+    subTitle: '어떤 공부를 하시는지 작성해주세요',
   },
+  favorite: {
+    title: '즐겨찾기',
+    subTitle: '즐겨찾기된 게시글입니다',
+  },
+}
+
+const defaultReactions = {
+  like: 0,
+  laugh: 0,
+  agree: 0,
+  thanks: 0,
+  wow: 0,
+}
+
+const sampleComments = [
+  {
+    id: 1,
+    writer: '실전코딩',
+    time: '5시간 전',
+    content: '컴포넌트로 나누니까 구조가 훨씬 보기 좋아졌네요.',
+    emoji: '😎',
+    reactions: { like: 1, laugh: 0, agree: 0, thanks: 0, wow: 0 },
+  },
+  {
+    id: 2,
+    writer: 'Glitter Gim',
+    time: '4시간 전',
+    content: '검색하고 페이지 이동되는 흐름이 잘 보입니다.',
+    emoji: '🙂',
+    reactions: { like: 0, laugh: 1, agree: 0, thanks: 0, wow: 0 },
+  },
+  {
+    id: 3,
+    writer: '리액트학생',
+    time: '3시간 전',
+    content: 'state를 어디에 둘지 이해하는 데 도움이 됐어요.',
+    emoji: '🤓',
+    reactions: { like: 0, laugh: 0, agree: 1, thanks: 0, wow: 0 },
+  },
+]
+
+const makeComments = (count) => sampleComments.slice(0, Math.min(count, sampleComments.length))
+
+const normalizePost = (post) => {
+  const commentsList = post.commentsList || makeComments(post.comments || 0)
+
+  return {
+    ...post,
+    favorite: post.favorite || false,
+    mine: post.mine || false,
+    comments: commentsList.length,
+    commentsList,
+    reactions: { ...defaultReactions, ...(post.reactions || {}) },
+    files: post.files || [],
+    poll: post.poll || null,
+  }
 }
 
 const initialPosts = [
   ...freePosts,
   ...resourcePosts,
   ...greetingPosts,
-]
+].map(normalizePost)
 
 function Router() {
   const [posts, setPosts] = useState(initialPosts)
 
-  const increaseViews = (postId) => {
-    setPosts((prevPosts) => prevPosts.map((post) => {
-      if (post.id === postId) {
-        return { ...post, views: post.views + 1 }
-      }
+  const updatePost = (postId, updater) => {
+    setPosts((prevPosts) => prevPosts.map((post) => (
+      post.id === postId ? updater(post) : post
+    )))
+  }
 
-      return post
+  const increaseViews = (postId) => {
+    updatePost(postId, (post) => ({ ...post, views: post.views + 1 }))
+  }
+
+  const addPost = (newPost) => {
+    setPosts((prevPosts) => {
+      const maxId = prevPosts.reduce((max, post) => Math.max(max, post.id), 0)
+
+      return [
+        normalizePost({
+          ...newPost,
+          id: maxId + 1,
+          writer: '나',
+          date: '방금 전',
+          views: 0,
+          comments: 0,
+          isNew: true,
+          mine: true,
+        }),
+        ...prevPosts,
+      ]
+    })
+  }
+
+  const addReaction = (postId, reactionId) => {
+    updatePost(postId, (post) => ({
+      ...post,
+      reactions: {
+        ...post.reactions,
+        [reactionId]: post.reactions[reactionId] + 1,
+      },
     }))
   }
 
+  const toggleFavorite = (postId) => {
+    updatePost(postId, (post) => ({ ...post, favorite: !post.favorite }))
+  }
+
+  const addComment = (postId, commentText) => {
+    updatePost(postId, (post) => {
+      const commentsList = [
+        ...post.commentsList,
+        {
+          id: Date.now(),
+          writer: '나',
+          time: '방금 전',
+          content: commentText,
+          emoji: '🙂',
+          reactions: { ...defaultReactions },
+        },
+      ]
+
+      return { ...post, commentsList, comments: commentsList.length }
+    })
+  }
+
+  const addCommentReaction = (postId, commentId, reactionId) => {
+    updatePost(postId, (post) => ({
+      ...post,
+      commentsList: post.commentsList.map((comment) => (
+        comment.id === commentId
+          ? {
+              ...comment,
+              reactions: {
+                ...comment.reactions,
+                [reactionId]: comment.reactions[reactionId] + 1,
+              },
+            }
+          : comment
+      )),
+    }))
+  }
+
+  const votePostPoll = (postId, selectedOptionIds) => {
+    updatePost(postId, (post) => {
+      if (!post.poll || post.poll.isVoted) {
+        return post
+      }
+
+      return {
+        ...post,
+        poll: {
+          ...post.poll,
+          isVoted: true,
+          voters: post.poll.voters + 1,
+          selectedOptionIds,
+          options: post.poll.options.map((option) => (
+            selectedOptionIds.includes(option.id)
+              ? { ...option, count: option.count + 1 }
+              : option
+          )),
+        },
+      }
+    })
+  }
+
+  const resetPostPoll = (postId) => {
+    updatePost(postId, (post) => {
+      if (!post.poll || !post.poll.isVoted) {
+        return post
+      }
+
+      const selectedOptionIds = post.poll.selectedOptionIds
+
+      return {
+        ...post,
+        poll: {
+          ...post.poll,
+          isVoted: false,
+          voters: Math.max(post.poll.voters - 1, 0),
+          selectedOptionIds: [],
+          options: post.poll.options.map((option) => (
+            selectedOptionIds.includes(option.id)
+              ? { ...option, count: Math.max(option.count - 1, 0) }
+              : option
+          )),
+        },
+      }
+    })
+  }
+
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Navigate to="/boards/free" />} />
+    <Routes>
+      <Route path="/" element={<Navigate to="/boards/free" />} />
 
-        <Route
-          path="/boards/:boardType"
-          element={<Home posts={posts} boardInfo={boardInfo} />}
-        />
+      <Route
+        path="/boards/:boardType"
+        element={<Home posts={posts} boardInfo={boardInfo} />}
+      />
 
-        <Route path="/write" element={<BoardWrite posts={posts} />} />
+      <Route
+        path="/write"
+        element={<BoardWrite posts={posts} addPost={addPost} />}
+      />
 
-        <Route
-          path="/board/:id"
-          element={<BoardView posts={posts} increaseViews={increaseViews} />}
-        />
-      </Routes>
-    </BrowserRouter>
+      <Route
+        path="/board/:id"
+        element={(
+          <BoardView
+            posts={posts}
+            increaseViews={increaseViews}
+            addReaction={addReaction}
+            toggleFavorite={toggleFavorite}
+            addComment={addComment}
+            addCommentReaction={addCommentReaction}
+            votePostPoll={votePostPoll}
+            resetPostPoll={resetPostPoll}
+          />
+        )}
+      />
+    </Routes>
   )
 }
 
