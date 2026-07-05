@@ -1,8 +1,10 @@
 function PostDetail({ post }) {
+  const categoryName = post.boardType === 'free' ? '자유게시판' : post.category
+
   return (
     <article className="post-detail">
       <div className="post-detail-head">
-        <span className="post-category">{post.category}</span>
+        <span className="post-category">{categoryName}</span>
         <h2>{post.title}</h2>
 
         <div className="post-meta">
@@ -17,11 +19,11 @@ function PostDetail({ post }) {
         <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
 
         {post.files.length > 0 && (
-          <ul className="post-file-list">
+          <div className="post-image-list">
             {post.files.map((file) => (
-              <li key={file}>📎 {file}</li>
+              <img key={file.name} src={file.src} alt={file.name} />
             ))}
-          </ul>
+          </div>
         )}
       </div>
     </article>

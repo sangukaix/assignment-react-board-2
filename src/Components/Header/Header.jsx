@@ -1,12 +1,10 @@
 import { NavLink } from 'react-router-dom'
 import './Header.css'
+import HeaderShapeBar from './HeaderShapeBar'
 
 function Header() {
   const menuList = [
-    { name: '자유게시판', path: '/boards/free' },
-    { name: '자료게시판', path: '/boards/resource' },
-    { name: '가입인사', path: '/boards/greeting' },
-    { name: '즐겨찾기', path: '/boards/favorite' },
+    { name: '커뮤니티', path: '/boards/free' },
   ]
 
   const showAuthAlert = () => {
@@ -15,6 +13,8 @@ function Header() {
 
   return (
     <header className="site-header">
+      <HeaderShapeBar />
+
       <div className="site-header-inner">
         <NavLink to="/boards/free" className="site-logo-area">
           <img src="/src/assets/image/logo1.png" alt="MBC 아카데미 학생게시판" />

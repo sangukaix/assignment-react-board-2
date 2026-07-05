@@ -1,8 +1,9 @@
 import { Link, useParams } from 'react-router-dom'
 import PopularPosts from './PopularPosts'
 
-function CommunityPanel({ posts }) {
+function CommunityPanel({ posts, resetPage, activeBoardType }) {
   const { boardType } = useParams()
+  const currentBoardType = activeBoardType || boardType
 
   const menuList = [
     { type: 'free', icon: '🔥', name: '자유게시판', path: '/boards/free' },
@@ -23,9 +24,9 @@ function CommunityPanel({ posts }) {
           {menuList.map((menu) => (
             <li
               key={menu.type}
-              className={boardType === menu.type ? 'active' : ''}
+              className={currentBoardType === menu.type ? 'active' : ''}
             >
-              <Link to={menu.path}>
+              <Link to={menu.path} onClick={resetPage}>
                 {menu.icon} {menu.name}
               </Link>
             </li>

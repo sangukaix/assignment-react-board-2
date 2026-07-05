@@ -99,6 +99,7 @@ export const freePosts = [
       deadline: '24시간',
       voters: 12,
       isVoted: true,
+      isClosed: true,
       selectedOptionIds: ['option-1'],
       options: [
         { id: 'option-1', text: '개발자', count: 5 },

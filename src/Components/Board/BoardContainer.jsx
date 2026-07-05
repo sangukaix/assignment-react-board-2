@@ -60,7 +60,11 @@ function BoardContainer({ posts, allPosts, boardType, boardInfo }) {
           </div>
         </div>
 
-        <BoardSide posts={allPosts} />
+        <BoardSide
+          posts={allPosts}
+          resetPage={() => setCurrentPage(1)}
+          activeBoardType={boardType}
+        />
       </section>
     </main>
   )

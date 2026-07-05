@@ -74,7 +74,7 @@ const normalizePost = (post) => {
     commentsList,
     reactions: { ...defaultReactions, ...(post.reactions || {}) },
     files: post.files || [],
-    poll: post.poll || null,
+    poll: post.poll ? { isClosed: false, ...post.poll } : null,
   }
 }
 
@@ -115,6 +115,20 @@ function Router() {
         ...prevPosts,
       ]
     })
+  }
+
+  const editPost = (postId, editedPost) => {
+    updatePost(postId, (post) => ({
+      ...post,
+      title: editedPost.title,
+      content: editedPost.content,
+      files: editedPost.files,
+      isNew: false,
+    }))
+  }
+
+  const deletePost = (postId) => {
+    setPosts((prevPosts) => prevPosts.filter((post) => post.id !== postId))
   }
 
   const addReaction = (postId, reactionId) => {
@@ -168,7 +182,7 @@ function Router() {
 
   const votePostPoll = (postId, selectedOptionIds) => {
     updatePost(postId, (post) => {
-      if (!post.poll || post.poll.isVoted) {
+      if (!post.poll || post.poll.isVoted || post.poll.isClosed) {
         return post
       }
 
@@ -229,6 +243,11 @@ function Router() {
       />
 
       <Route
+        path="/edit/:id"
+        element={<BoardWrite posts={posts} addPost={addPost} editPost={editPost} />}
+      />
+
+      <Route
         path="/board/:id"
         element={(
           <BoardView
@@ -240,6 +259,7 @@ function Router() {
             addCommentReaction={addCommentReaction}
             votePostPoll={votePostPoll}
             resetPostPoll={resetPostPoll}
+            deletePost={deletePost}
           />
         )}
       />

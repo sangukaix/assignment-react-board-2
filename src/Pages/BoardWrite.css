@@ -69,6 +69,12 @@
   font-size: 14px;
 }
 
+.write-field select:disabled,
+.write-field input:disabled {
+  background-color: #f8fafc;
+  color: #94a3b8;
+}
+
 .write-editor {
   border: 1px solid #cbd5e1;
   border-radius: 6px;
@@ -135,6 +141,64 @@
 .write-sub-buttons span {
   color: #64748b;
   font-size: 13px;
+}
+
+.write-notice {
+  margin: 18px 24px 0;
+  padding: 10px 12px;
+  border-radius: 6px;
+  background-color: #fff7ed;
+  color: #f97316;
+  font-size: 13px;
+}
+
+.write-preview {
+  margin: 14px 24px 0;
+  padding: 18px;
+  border: 1px solid #dce3ee;
+  border-radius: 8px;
+  background-color: #f8fafc;
+}
+
+.write-preview-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.write-preview-head strong {
+  color: #0f172a;
+  font-size: 15px;
+}
+
+.write-preview-head button {
+  border: none;
+  background-color: transparent;
+  color: #64748b;
+  cursor: pointer;
+}
+
+.write-preview h3 {
+  margin: 0 0 12px;
+  color: #0f172a;
+  font-size: 20px;
+}
+
+.write-preview-content {
+  min-height: 70px;
+  color: #334155;
+  font-size: 14px;
+  line-height: 1.7;
+  white-space: pre-wrap;
+}
+
+.write-preview-images img {
+  max-width: 100%;
+  display: block;
+  margin-top: 12px;
+  border-radius: 6px;
+  border: 1px solid #dce3ee;
 }
 
 .write-poll {
@@ -210,7 +274,7 @@
   padding: 0 18px;
   border-radius: 6px;
   font-size: 14px;
-  font-weight: 800;
+  font-weight: 400;
   cursor: pointer;
 }
 
@@ -235,18 +299,31 @@
   display: none;
 }
 
-.write-file-list {
-  margin: 10px 0 0;
-  padding: 10px 12px;
-  border-radius: 6px;
-  background-color: #f8fafc;
-  color: #475569;
-  font-size: 13px;
-  list-style: none;
+.write-image-list {
+  margin: 12px 0 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }
 
-.write-file-list li + li {
-  margin-top: 4px;
+.write-image-item {
+  padding: 10px;
+  border: 1px solid #dce3ee;
+  border-radius: 8px;
+  background-color: #f8fafc;
+}
+
+.write-image-item img {
+  max-width: 100%;
+  display: block;
+  border-radius: 6px;
+}
+
+.write-image-item span {
+  display: block;
+  margin-top: 8px;
+  color: #64748b;
+  font-size: 13px;
 }
 
 .write-poll-info {

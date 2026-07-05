@@ -56,7 +56,10 @@ function BoardCategory() {
   return (
     <div className="poll-card">
       <div className="poll-title-row">
-        <strong>투표</strong>
+        <strong>
+          <span className="poll-title-icon"></span>
+          공식투표
+        </strong>
         <span>진행중</span>
       </div>
 

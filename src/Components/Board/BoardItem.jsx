@@ -12,8 +12,8 @@ function BoardItem({ post }) {
   const visibleReactions = reactionTypes.filter((reaction) => (
     (post.reactions?.[reaction.id] || 0) > 0
   ))
-  const pollBadgeText = post.poll?.isVoted ? '투표완료' : '☑ 투표'
-  const pollBadgeClass = post.poll?.isVoted ? 'poll-badge done' : 'poll-badge'
+  const pollBadgeText = post.poll?.isClosed ? '투표 종료' : '투표중'
+  const pollBadgeClass = post.poll?.isClosed ? 'poll-badge done' : 'poll-badge'
 
   return (
     <div className={post.poll ? 'board-item poll-post' : 'board-item'}>
@@ -21,6 +21,10 @@ function BoardItem({ post }) {
         {post.poll && <em className={pollBadgeClass}>{pollBadgeText}</em>}
 
         <Link to={`/board/${post.id}`}>{post.title}</Link>
+
+        {post.files?.length > 0 && (
+          <span className="image-post-icon" title="이미지 첨부 글"></span>
+        )}
 
         {post.comments > 0 && <strong className="comment-count">[{post.comments}]</strong>}
 

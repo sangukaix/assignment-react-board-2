@@ -9,7 +9,10 @@ function BoardSearch() {
 
       <input type="text" placeholder="검색어" />
 
-      <button type="button">검색</button>
+      <button type="button">
+        <span className="search-button-icon"></span>
+        검색
+      </button>
     </div>
   )
 }

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { Link, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import BoardSide from '../Components/SideBar/BoardSide'
 import PostDetail from '../Components/ViewPage/PostDetail'
 import PostPoll from '../Components/ViewPage/PostPoll'
@@ -17,8 +17,10 @@ function BoardView({
   addCommentReaction,
   votePostPoll,
   resetPostPoll,
+  deletePost,
 }) {
   const { id } = useParams()
+  const navigate = useNavigate()
   const postId = Number(id)
   const viewedPostId = useRef(null)
   const post = posts.find((item) => item.id === postId)
@@ -49,12 +51,26 @@ function BoardView({
     )
   }
 
+  const isActivePoll = post.poll && !post.poll.isClosed
+
+  const handleDelete = () => {
+    if (isActivePoll) {
+      alert('진행중인 투표는 수정 및 삭제가 불가합니다.')
+      return
+    }
+
+    if (window.confirm('정말로 삭제하시겠습니까?')) {
+      deletePost(post.id)
+      navigate(`/boards/${post.boardType}`)
+    }
+  }
+
   return (
     <main className="board-page">
       <section className="view-layout">
         <div className="view-main">
           <div className="view-top-nav">
-            <Link to={`/boards/${post.boardType}`} className="view-back-link">목록</Link>
+            <Link to={`/boards/${post.boardType}`} className="view-back-link">← 목록으로</Link>
             <span>확실히 휴먼 피드백이 가장 좋네요. 〉</span>
           </div>
 
@@ -77,6 +93,15 @@ function BoardView({
             />
 
             <div className="view-card-actions">
+              {isActivePoll ? (
+                <p className="poll-edit-notice">진행중인 투표는 수정 및 삭제가 불가합니다.</p>
+              ) : (
+                <div className="view-edit-actions">
+                  <Link to={`/edit/${post.id}`} className="view-edit-button">수정</Link>
+                  <button type="button" className="view-delete-button" onClick={handleDelete}>삭제</button>
+                </div>
+              )}
+
               <button
                 type="button"
                 className={post.favorite ? 'favorite-button active' : 'favorite-button'}
@@ -95,7 +120,7 @@ function BoardView({
           <CommentWrite onAddComment={(commentText) => addComment(post.id, commentText)} />
         </div>
 
-        <BoardSide posts={posts} />
+        <BoardSide posts={posts} activeBoardType={post.boardType} />
       </section>
     </main>
   )
