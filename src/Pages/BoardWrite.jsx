@@ -12,6 +12,7 @@ function BoardWrite({ posts, addPost, editPost }) {
 
   const editPostId = Number(id)
   const editTarget = posts.find((post) => post.id === editPostId)
+  const isEditPage = id !== undefined
   const isEditMode = Boolean(editTarget)
   const isActivePoll = editTarget?.poll && !editTarget.poll.isClosed
 
@@ -193,7 +194,7 @@ function BoardWrite({ posts, addPost, editPost }) {
     navigate(`/boards/${boardType}`)
   }
 
-  if (isEditMode && !editTarget) {
+  if (isEditPage && !editTarget) {
     return (
       <main className="board-page">
         <section className="write-layout">

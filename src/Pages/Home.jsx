@@ -12,6 +12,7 @@ function Home({ posts, boardInfo }) {
 
   return (
     <BoardContainer
+      key={currentBoardType}
       posts={currentPosts}
       allPosts={posts}
       boardType={currentBoardType}

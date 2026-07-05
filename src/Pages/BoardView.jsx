@@ -71,7 +71,7 @@ function BoardView({
         <div className="view-main">
           <div className="view-top-nav">
             <Link to={`/boards/${post.boardType}`} className="view-back-link">← 목록으로</Link>
-            <span>확실히 휴먼 피드백이 가장 좋네요. 〉</span>
+            <span>게시글 상세보기</span>
           </div>
 
           <div className="view-card">

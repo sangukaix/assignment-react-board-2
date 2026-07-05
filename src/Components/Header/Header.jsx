@@ -1,6 +1,7 @@
 import { NavLink } from 'react-router-dom'
 import './Header.css'
 import HeaderShapeBar from './HeaderShapeBar'
+import logo from '../../assets/image/logo1.png'
 
 function Header() {
   const menuList = [
@@ -17,7 +18,7 @@ function Header() {
 
       <div className="site-header-inner">
         <NavLink to="/boards/free" className="site-logo-area">
-          <img src="/src/assets/image/logo1.png" alt="MBC 아카데미 학생게시판" />
+          <img src={logo} alt="MBC 아카데미 학생게시판" />
         </NavLink>
 
         <nav className="site-nav">

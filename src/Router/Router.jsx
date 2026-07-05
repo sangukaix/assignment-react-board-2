@@ -6,6 +6,7 @@ import BoardView from '../Pages/BoardView'
 import { freePosts } from '../BoardData/Free'
 import { resourcePosts } from '../BoardData/Resource'
 import { greetingPosts } from '../BoardData/Greeting'
+import { commentsByPostId } from '../BoardData/Comments'
 
 const boardInfo = {
   free: {
@@ -34,37 +35,8 @@ const defaultReactions = {
   wow: 0,
 }
 
-const sampleComments = [
-  {
-    id: 1,
-    writer: '실전코딩',
-    time: '5시간 전',
-    content: '컴포넌트로 나누니까 구조가 훨씬 보기 좋아졌네요.',
-    emoji: '😎',
-    reactions: { like: 1, laugh: 0, agree: 0, thanks: 0, wow: 0 },
-  },
-  {
-    id: 2,
-    writer: 'Glitter Gim',
-    time: '4시간 전',
-    content: '검색하고 페이지 이동되는 흐름이 잘 보입니다.',
-    emoji: '🙂',
-    reactions: { like: 0, laugh: 1, agree: 0, thanks: 0, wow: 0 },
-  },
-  {
-    id: 3,
-    writer: '리액트학생',
-    time: '3시간 전',
-    content: 'state를 어디에 둘지 이해하는 데 도움이 됐어요.',
-    emoji: '🤓',
-    reactions: { like: 0, laugh: 0, agree: 1, thanks: 0, wow: 0 },
-  },
-]
-
-const makeComments = (count) => sampleComments.slice(0, Math.min(count, sampleComments.length))
-
 const normalizePost = (post) => {
-  const commentsList = post.commentsList || makeComments(post.comments || 0)
+  const commentsList = post.commentsList || commentsByPostId[post.id] || []
 
   return {
     ...post,
