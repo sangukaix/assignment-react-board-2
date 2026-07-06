@@ -109,7 +109,7 @@ function BoardWrite({ posts, addPost, editPost }) {
 
   const handlePreview = () => {
     syncContent()
-    setIsPreviewOpen(true)
+    setIsPreviewOpen((prevIsPreviewOpen) => !prevIsPreviewOpen)
   }
 
   const makePollData = () => {
@@ -292,7 +292,7 @@ function BoardWrite({ posts, addPost, editPost }) {
             </div>
 
             <div className="write-sub-buttons">
-              <button type="button" onClick={handlePreview}>미리보기</button>
+              <button type="button" onClick={handlePreview}>{isPreviewOpen ? '미리보기 닫기' : '미리보기'}</button>
               <span>{contentText.length}글자</span>
             </div>
 

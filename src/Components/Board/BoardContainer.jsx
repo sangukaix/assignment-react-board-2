@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import BoardSearch from './BoardSearch'
 import BoardList from './BoardList'
 import BoardSide from '../SideBar/BoardSide'
@@ -7,7 +7,9 @@ import BoardSummary from './BoardSummary'
 import './Board.css'
 
 function BoardContainer({ posts, allPosts, boardType, boardInfo }) {
-  const [currentPage, setCurrentPage] = useState(1)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const pageParam = Number(searchParams.get('page')) || 1
+  const [currentPage, setCurrentPage] = useState(pageParam)
   const [searchType, setSearchType] = useState('titleContent')
   const [searchKeyword, setSearchKeyword] = useState('')
 
@@ -33,11 +35,19 @@ function BoardContainer({ posts, allPosts, boardType, boardInfo }) {
     return title.includes(keyword) || content.includes(keyword)
   })
 
-  const postsPerPage = 8
+  const postsPerPage = 10
   const totalPage = Math.max(Math.ceil(filteredPosts.length / postsPerPage), 1)
-  const startIndex = (currentPage - 1) * postsPerPage
+  const displayPage = Math.min(currentPage, totalPage)
+  const startIndex = (displayPage - 1) * postsPerPage
   const currentPosts = filteredPosts.slice(startIndex, startIndex + postsPerPage)
   const writeBoardType = boardType === 'favorite' ? 'free' : boardType
+
+  const changePage = (nextPage) => {
+    const page = Math.min(Math.max(nextPage, 1), totalPage)
+    setCurrentPage(page)
+    setSearchParams(page === 1 ? {} : { page: String(page) })
+  }
+
 
   return (
     <main className="board-page">
@@ -58,7 +68,7 @@ function BoardContainer({ posts, allPosts, boardType, boardInfo }) {
               setSearchType={setSearchType}
               searchKeyword={searchKeyword}
               setSearchKeyword={setSearchKeyword}
-              resetPage={() => setCurrentPage(1)}
+              resetPage={() => changePage(1)}
             />
             <Link to={`/write?board=${writeBoardType}`} className="write-button">+ 글쓰기</Link>
           </div>
@@ -71,28 +81,28 @@ function BoardContainer({ posts, allPosts, boardType, boardInfo }) {
           )}
 
           <div className="pagination">
-            <button type="button" onClick={() => setCurrentPage(1)} disabled={currentPage === 1}>{'<<'}</button>
-            <button type="button" onClick={() => setCurrentPage(currentPage - 1)} disabled={currentPage === 1}>{'<'}</button>
+            <button type="button" onClick={() => changePage(1)} disabled={displayPage === 1}>{'<<'}</button>
+            <button type="button" onClick={() => changePage(displayPage - 1)} disabled={displayPage === 1}>{'<'}</button>
 
             {Array.from({ length: totalPage }, (_, index) => (
               <button
                 type="button"
                 key={index + 1}
-                className={currentPage === index + 1 ? 'active' : ''}
-                onClick={() => setCurrentPage(index + 1)}
+                className={displayPage === index + 1 ? 'active' : ''}
+                onClick={() => changePage(index + 1)}
               >
                 {index + 1}
               </button>
             ))}
 
-            <button type="button" onClick={() => setCurrentPage(currentPage + 1)} disabled={currentPage === totalPage}>{'>'}</button>
-            <button type="button" onClick={() => setCurrentPage(totalPage)} disabled={currentPage === totalPage}>{'>>'}</button>
+            <button type="button" onClick={() => changePage(displayPage + 1)} disabled={displayPage === totalPage}>{'>'}</button>
+            <button type="button" onClick={() => changePage(totalPage)} disabled={displayPage === totalPage}>{'>>'}</button>
           </div>
         </div>
 
         <BoardSide
           posts={allPosts}
-          resetPage={() => setCurrentPage(1)}
+          resetPage={() => changePage(1)}
           activeBoardType={boardType}
         />
       </section>

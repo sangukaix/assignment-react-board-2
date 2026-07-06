@@ -1,6 +1,10 @@
 function PostDetail({ post }) {
   const categoryName = post.boardType === 'free' ? '자유게시판' : post.category
 
+  const isImageFile = (file) => {
+    return file.type === 'image' || file.src?.startsWith('data:image')
+  }
+
   return (
     <article className="post-detail">
       <div className="post-detail-head">
@@ -19,9 +23,15 @@ function PostDetail({ post }) {
         <div dangerouslySetInnerHTML={{ __html: post.content }}></div>
 
         {post.files.length > 0 && (
-          <div className="post-image-list">
+          <div className="post-file-list">
             {post.files.map((file) => (
-              <img key={file.name} src={file.src} alt={file.name} />
+              isImageFile(file) ? (
+                <img key={file.name} src={file.src} alt={file.name} />
+              ) : (
+                <a key={file.name} href={file.src} download={file.name}>
+                  📎 {file.name}
+                </a>
+              )
             ))}
           </div>
         )}

@@ -13,13 +13,16 @@
   margin: 0 auto;
   display: flex;
   align-items: center;
-  gap: 30px;
+  justify-content: flex-end;
 }
 
 .site-logo-area {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   align-items: center;
-  flex-shrink: 0;
 }
 
 .site-logo-area img {
@@ -27,46 +30,7 @@
   display: block;
 }
 
-.site-nav {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  flex: 0 0 auto;
-}
-
-.site-nav a {
-  position: relative;
-  padding: 27px 2px 25px;
-  color: #475569;
-  font-size: 14px;
-  font-weight: 500;
-  line-height: 1;
-  text-decoration: none;
-}
-
-.site-nav a:hover,
-.site-nav a.active {
-  color: #0f3f86;
-}
-
-.site-nav a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 17px;
-  width: 0;
-  height: 2px;
-  background-color: #2563eb;
-  transition: width 0.2s;
-}
-
-.site-nav a:hover::after,
-.site-nav a.active::after {
-  width: 100%;
-}
-
 .site-auth {
-  margin-left: auto;
   display: flex;
   justify-content: flex-end;
   gap: 8px;
@@ -109,30 +73,24 @@
 }
 
 @media (max-width: 900px) {
-  .site-header {
-    height: auto;
-  }
-
   .site-header-inner {
     width: 100%;
-    padding: 14px 16px;
-    flex-wrap: wrap;
-    gap: 14px;
+    height: 68px;
+    padding: 0 16px;
   }
 
-  .site-nav {
-    order: 3;
-    width: 100%;
-    gap: 20px;
-    overflow-x: auto;
+  .site-logo-area img {
+    width: 180px;
   }
 
-  .site-nav a {
-    padding: 8px 0;
-    white-space: nowrap;
+  .site-auth {
+    gap: 6px;
   }
 
-  .site-nav a::after {
-    bottom: 2px;
+  .login-button,
+  .join-button {
+    height: 32px;
+    padding: 0 10px;
+    font-size: 12px;
   }
-}
+}

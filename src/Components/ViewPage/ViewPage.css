@@ -264,16 +264,34 @@
   font-weight: 400;
   cursor: pointer;
 }
-.post-image-list {
+.post-file-list {
   margin-top: 20px;
 }
 
-.post-image-list img {
-  max-width: 100%;
+.post-file-list img {
+  width: 100%;
+  max-width: 560px;
   display: block;
   margin-top: 12px;
   border-radius: 8px;
   border: 1px solid #e5eaf2;
+}
+
+.post-file-list a {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 12px;
+  padding: 10px 12px;
+  border: 1px solid #dce3ee;
+  border-radius: 6px;
+  background-color: #f8fafc;
+  color: #334155;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.post-file-list a:hover {
+  color: #2563eb;
 }
 
 .post-poll-box {
